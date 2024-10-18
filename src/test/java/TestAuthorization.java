@@ -30,16 +30,22 @@ public class TestAuthorization {
     }
 
     @ParameterizedTest
-@CsvSource({
-        "standard_user, secret_sauce",
-        "Arseniy, secret_sauce",
-        " , secret_sauce",
-        "<script>, secret_sauce",
-        "select, secret_sauce",
-                "standard_user, secret_s",
-        "standard_using, secret_sa",
-        ","
-})
+    @CsvSource({
+            "standard_user, secret_sauce",
+            "locked_out_user, secret_sauce",
+            "problem_user, secret_sauce",
+            "performance_glitch_user, secret_sauce",
+            "error_user, secret_sauce",
+            "visual_user, secret_sauce",
+            ", secret_sauce",
+            "Arseniy, secret_sauce",
+            " , secret_sauce",
+            "<script>, secret_sauce",
+            "select, secret_sauce",
+            "standard_user, secret_s",
+            "standard_using, secret_sa",
+            ","
+    })
 
     public void testCheckAuthorization(String name, String password) throws InterruptedException {
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
@@ -47,12 +53,12 @@ public class TestAuthorization {
         authorizationPage.enterPassword(password);
         authorizationPage.clickLoginButton();
         String expectedUrl;
-        if ("standard_user".equals(name) && "secret_sauce".equals(password)) {
+        if ("standard_user".equals(name) && "secret_sauce".equals(password) || "locked_out_user".equals(name) && "secret_sauce".equals(password) || "problem_user".equals(name) && "secret_sauce".equals(password) || "performance_glitch_user".equals(name) && "secret_sauce".equals(password) || "error_user".equals(name) && "secret_sauce".equals(password) || "visual_user".equals(name) && "secret_sauce".equals(password)) {
             expectedUrl = "https://www.saucedemo.com/inventory.html";
         } else {
             expectedUrl = "https://www.saucedemo.com/";
         }
         String urlAfterAuthorization = driver.getCurrentUrl();
-                assertEquals(expectedUrl, urlAfterAuthorization);
+        assertEquals(expectedUrl, urlAfterAuthorization);
     }
 }
