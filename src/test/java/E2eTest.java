@@ -16,31 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-public class E2eTest {
-    private WebDriver driver;
-    private Waiting waiting;
-    private String MainPageUrl = "https://www.saucedemo.com/";
-
-    @BeforeEach
-@Step("Открыть страницу 'https://www.saucedemo.com/'")
-    public void setUp() {
-        // Инициализация объекта WebDriver
-        driver = new ChromeDriver();
-        waiting = new Waiting(driver);
-        driver.get(MainPageUrl);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        // Закрытие браузера
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+public class E2eTest extends BaseTest {
 
     @Test
     public void FullTest() {
@@ -48,26 +29,28 @@ public class E2eTest {
         authorizationPage.enterUsername("standard_user");
         authorizationPage.enterPassword("secret_sauce");
         authorizationPage.clickLoginButton();
-        String urlAfterAuthorization = driver.getCurrentUrl();
-        assertTrue(urlAfterAuthorization.contains("https://www.saucedemo.com/"), "Authorization failed");
+
         ProductPage productPage = new ProductPage(driver);
+        CheckMethods checkMethods = new CheckMethods(driver);
+        checkMethods.checkProductTitlePageText("Products");
         productPage.chooseProduct();
-        productPage.AddProductToCart();
+        productPage.addProductToCart();
+        productPage.goCart();
+
         CartPage cartPage = new CartPage(driver);
-        cartPage.GoCart();
-        WebElement actualCart = waiting.GetWait().until(visibilityOfElementLocated(By.xpath("//div[@class='inventory_item_name']")));
-        assertEquals("Sauce Labs Backpack", actualCart.getText());
+        checkMethods.checkInventoryItemText("Sauce Labs Backpack");
+
         OrderPage orderPage = new OrderPage(driver);
         orderPage.ClickCheckOutButton();
         orderPage.EnterYourFirstname("Test name");
         orderPage.EnterYourLastname("Test lastname");
         orderPage.EnterYourZipPostalCod("125212");
         orderPage.ClickNextButton();
+
         FinishOrderPage finishOrderPage = new FinishOrderPage(driver);
         finishOrderPage.ClickFinishButton();
-        WebElement ActualHeader = driver.findElement(By.xpath("//h2[@class='complete-header']"));
-        String expectedResult = "Thank you for your order!";
-        String actualResult = ActualHeader.getText();
-        assertEquals(expectedResult, actualResult);
+
+        GratefulPage gratefulPage = new GratefulPage(driver);
+        checkMethods.checkGratefulHeaderText("Thank you for your order!");
     }
 }

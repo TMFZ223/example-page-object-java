@@ -10,9 +10,9 @@ public class AuthorizationPage {
 
     public AuthorizationPage(WebDriver driver) {
         this.driver = driver;
-
     }
-@Step("Ввести имя пользователя")
+
+    @Step("Ввести имя пользователя {username}")
     public void enterUsername(String username) {
     if (username != null && !username.trim().isEmpty()) {
         driver.findElement(usernameInput).sendKeys(username);
@@ -20,7 +20,8 @@ public class AuthorizationPage {
         driver.findElement(usernameInput).clear();
     }
     }
-@Step("Ввести пароль")
+
+@Step("Ввести пароль {pass}")
     public void enterPassword(String pass) {
         if (pass != null && !pass.trim().isEmpty()) {
             driver.findElement(password).sendKeys(pass);
@@ -28,6 +29,7 @@ public class AuthorizationPage {
         driver.findElement(password).clear();
     } 
     }
+
 @Step("Нажать на кнопку входа")
     public void clickLoginButton() {
         driver.findElement(loginButton).click();

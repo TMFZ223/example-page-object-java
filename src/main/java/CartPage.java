@@ -7,21 +7,22 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.time.Duration;
+
 import io.qameta.allure.Step;
 
 public class CartPage {
     private WebDriver driver;
-    private  Waiting waiting;
-    private By cartLink = By.xpath("//a[@class='shopping_cart_link']");
+    private Waiting waiting;
+    private By inventoryItemName = By.xpath("//div[@class='inventory_item_name']"); // Элемент, где показан добавленный товар
 
     public CartPage(WebDriver driver) {
-                this.driver = driver;
-                this.waiting = new Waiting(driver);
+        this.driver = driver;
+        this.waiting = new Waiting(driver);
     }
 
-@Step("Перейти в корзину")
-    public void GoCart() {
-        waiting.GetWait().until(elementToBeClickable(cartLink)).click();
-
+    // Получение текста добавленного товара
+    public String getInventoryItemText() {
+        String inventoryItemText = waiting.getWait().until(visibilityOfElementLocated(inventoryItemName)).getText();
+        return  inventoryItemText;
     }
 }

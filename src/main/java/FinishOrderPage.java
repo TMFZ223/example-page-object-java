@@ -15,12 +15,12 @@ public class FinishOrderPage {
     private By FinishButton = By.xpath("//button[@name='finish']");
 
     public FinishOrderPage(WebDriver driver) {
-                this.driver = driver;
-                this.waiting = new Waiting(driver);
+        this.driver = driver;
+        this.waiting = new Waiting(driver);
     }
 
 @Step("Нажать на кнопку завершения заказа")
     public void ClickFinishButton() {
-        waiting.GetWait().until(elementToBeClickable(FinishButton)).click();
+        waiting.getWait().until(elementToBeClickable(FinishButton)).click();
     }
 }

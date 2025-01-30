@@ -1,62 +1,40 @@
-import org.junit.jupiter.params.provider.Arguments;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.stream.Stream;
+@Epic("Тестирование функционала авторизации")
+public class TestAuthorization extends BaseTest {
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+    @ParameterizedTest
+    @ValueSource(strings = {"standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user"})
+    @DisplayName("Позетивный тест авторизации")
+    public void positiveTestAuthorization(String user) {
+        AuthorizationPage authorizationPage = new AuthorizationPage(driver);
+        authorizationPage.enterUsername(user);
+        authorizationPage.enterPassword("secret_sauce");
+        authorizationPage.clickLoginButton();
 
-public class TestAuthorization {
-    private WebDriver driver;
-    private String MainPageUrl = "https://www.saucedemo.com/";
-    static List<String> names = Arrays.asList("standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user", "standard_using", "Arseniy", "select", "<script>", "");
-    static List<String> passwords = Arrays.asList("secret_sauce", "secret_sauc", "select", "</script>", "");
+        ProductPage productPage = new ProductPage(driver);
 
-    static Stream<Arguments> provideTestArguments() {
-        List<Arguments> argumentsList = new ArrayList<>();
-        for (String name : names) {
-            for (String password : passwords) {
-                argumentsList.add(Arguments.of(name, password));
-            }
-        }
-        return argumentsList.stream();
-    }
-
-    @BeforeEach
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.get(MainPageUrl);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        CheckMethods checkMethods = new CheckMethods(driver);
+        String expectedTextAfterAuthorization = "Products";
+        checkMethods.checkProductTitlePageText(expectedTextAfterAuthorization);
     }
 
     @ParameterizedTest
-    @MethodSource("provideTestArguments")
-    public void testCheckAuthorization(String name, String password) throws InterruptedException {
+    @CsvSource({"'', 'secret_sauce', 'Epic sadface: Username is required'", "'standard_user', '', 'Epic sadface: Password is required'", "'locked_out_user', 'select', 'Epic sadface: Username and password do not match any user in this service'", "'locked_out_user', '<script>', 'Epic sadface: Username and password do not match any user in this service'"})
+    @Description("Негативный тест авторизации")
+    @DisplayName("Негативный тест авторизации")
+    public void negativeTestAuthorization(String usernameValue, String passValue, String errorText) {
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
-        authorizationPage.enterUsername(name);
-        authorizationPage.enterPassword(password);
+        authorizationPage.enterUsername(usernameValue);
+        authorizationPage.enterPassword(passValue);
         authorizationPage.clickLoginButton();
-        String expectedUrl;
-        List<String> AcceptedUsers = Arrays.asList("standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user");
-        if (AcceptedUsers.contains(name) && "secret_sauce".equals(password)) {
-            expectedUrl = "https://www.saucedemo.com/inventory.html";
-        } else {
-            expectedUrl = "https://www.saucedemo.com/";
-        }
-        String urlAfterAuthorization = driver.getCurrentUrl();
-        assertEquals(expectedUrl, urlAfterAuthorization);
+
+        CheckMethods checkMethods = new CheckMethods(driver);
+        checkMethods.checkErrorTextAfterAuthorization(errorText);
     }
 }
