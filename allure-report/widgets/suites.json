@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"c247e9199baaf11fc6adee7a5326a10c","name":"TestAuthorization","statistic":{"failed":0,"broken":1,"skipped":0,"passed":9,"unknown":0,"total":10}},{"uid":"5264a3f24a3683cd68f42e71abe96063","name":"E2eTest","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
