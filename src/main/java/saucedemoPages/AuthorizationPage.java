@@ -1,15 +1,16 @@
+package saucedemoPages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import io.qameta.allure.Step;
 
-public class AuthorizationPage {
-    private WebDriver driver;
+public class AuthorizationPage extends BasePage {
     private By usernameInput = By.xpath("//input[@placeholder='Username']");
     private By password = By.xpath("//input[@placeholder='Password']");
     private By loginButton = By.xpath("//input[@value='Login']");
 
     public AuthorizationPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @Step("Ввести имя пользователя {username}")

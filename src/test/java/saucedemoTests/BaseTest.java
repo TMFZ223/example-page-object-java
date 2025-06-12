@@ -1,3 +1,5 @@
+package saucedemoTests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
@@ -14,7 +16,7 @@ abstract class BaseTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--no-sandbox");
+        options.addArguments("--headless", "--no-sandbox", "--incognito");
         driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com/");
         driver.manage().window().maximize();

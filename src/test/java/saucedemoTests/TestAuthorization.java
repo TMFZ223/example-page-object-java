@@ -1,9 +1,14 @@
+package saucedemoTests;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import saucedemoPages.AuthorizationPage;
+import saucedemoPages.ErrorAuthorizationPage;
+import saucedemoPages.ProductPage;
 
 @Epic("Тестирование функционала авторизации")
 public class TestAuthorization extends BaseTest {
@@ -18,10 +23,8 @@ public class TestAuthorization extends BaseTest {
         authorizationPage.clickLoginButton();
 
         ProductPage productPage = new ProductPage(driver);
-
-        CheckMethods checkMethods = new CheckMethods(driver);
-        String expectedTextAfterAuthorization = "Products";
-        checkMethods.checkProductTitlePageText(expectedTextAfterAuthorization);
+            String expectedTextAfterAuthorization = "Products";
+        productPage.checkProductTitlePageText(expectedTextAfterAuthorization);
     }
 
     @ParameterizedTest
@@ -34,7 +37,7 @@ public class TestAuthorization extends BaseTest {
         authorizationPage.enterPassword(passValue);
         authorizationPage.clickLoginButton();
 
-        CheckMethods checkMethods = new CheckMethods(driver);
-        checkMethods.checkErrorTextAfterAuthorization(errorText);
+        ErrorAuthorizationPage errorAuthorizationPage = new ErrorAuthorizationPage(driver);
+        errorAuthorizationPage.checkErrorTextAfterAuthorization(errorText);
     }
 }
