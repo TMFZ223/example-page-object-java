@@ -1,14 +1,28 @@
 package saucedemoTests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 import saucedemoPages.*;
 
+@Epic("E2E test")
 public class E2eTest extends BaseTest {
+    private List<String> acceptedUsers = Arrays.asList("standard_user", "locked_out_user", "problem_user", "performance_glitch_user", "error_user", "visual_user");
 
+    @DisplayName("Сквозной тест для функционала интернет-магазина")
+    @Description("Тестирование критически важного функционала (от входа в систему до оформления покупки")
     @Test
     public void FullTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
-                authorizationPage.enterUsername("standard_user");
+        Random random = new Random();
+        String acceptedUserName = acceptedUsers.get(random.nextInt(acceptedUsers.size()));
+        authorizationPage.enterUsername(acceptedUserName);
         authorizationPage.enterPassword("secret_sauce");
         authorizationPage.clickLoginButton();
 
