@@ -8,14 +8,15 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 import io.qameta.allure.Step;
 
 public class FinishOrderPage extends BasePage {
-    private final By FinishButton = By.id("finish");
+    private final By finishButton = By.id("finish");
 
     public FinishOrderPage(WebDriver driver) {
         super(driver);
     }
 
-@Step("Нажать на кнопку завершения заказа")
+    @Step("Нажать на кнопку завершения заказа")
     public void ClickFinishButton() {
-        getWait().until(elementToBeClickable(FinishButton)).click();
+        getWait().until(elementToBeClickable(finishButton)).getLocation();
+        driver.findElement(finishButton).click();
     }
 }
