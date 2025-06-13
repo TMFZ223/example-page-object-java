@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GratefulPage extends BasePage {
-    private By gratefulHeader = By.xpath("//h2[@class='complete-header']");
+    private final By gratefulHeader = By.className("complete-header");
 
     public GratefulPage(WebDriver driver) {
         super(driver);

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ErrorAuthorizationPage extends BasePage {
-    private By errorElement = By.xpath("//h3[@data-test='error']");
+    private final By errorElement = By.xpath("//h3[@data-test='error']");
 
     public ErrorAuthorizationPage(WebDriver driver) {
         super(driver);

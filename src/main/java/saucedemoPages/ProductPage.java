@@ -10,13 +10,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 import io.qameta.allure.Step;
 
 public class ProductPage extends BasePage {
-    private By titleProductPage = By.xpath("//span[@class='title']");
-    private By product = By.xpath("//img[@alt ='Sauce Labs Backpack']");
-    private By cartButton = By.xpath("//button[@name = 'add-to-cart']");
-    private By cartLink = By.xpath("//a[@class='shopping_cart_link']");
+    private final By titleProductPage = By.xpath("//span[@class='title']");
+    private final By product = By.xpath("//img[@alt ='Sauce Labs Backpack']");
+    private final By cartButton = By.name("add-to-cart");
+    private final By cartLink = By.className("shopping_cart_link");
 
     public ProductPage(WebDriver driver) {
-       super(driver);
+        super(driver);
     }
 
     @Step("Выбрать для покупки товар 'Sauce Labs Backpack'")
@@ -34,7 +34,7 @@ public class ProductPage extends BasePage {
         getWait().until(elementToBeClickable(cartLink)).click();
     }
 
-        // Получение текста заголовка страницы
+    // Получение текста заголовка страницы
     public String getProductTitlePageText() {
         String productTitlePageText = driver.findElement(titleProductPage).getText();
         return productTitlePageText;

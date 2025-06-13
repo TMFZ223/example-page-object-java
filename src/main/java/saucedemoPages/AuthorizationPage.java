@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import io.qameta.allure.Step;
 
 public class AuthorizationPage extends BasePage {
-    private By usernameInput = By.xpath("//input[@placeholder='Username']");
-    private By password = By.xpath("//input[@placeholder='Password']");
-    private By loginButton = By.xpath("//input[@value='Login']");
+    private final By usernameInput = By.id("user-name");
+    private final By password = By.id("password");
+    private final By loginButton = By.id("login-button");
 
     public AuthorizationPage(WebDriver driver) {
         super(driver);

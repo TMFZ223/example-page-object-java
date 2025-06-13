@@ -8,7 +8,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 import io.qameta.allure.Step;
 
 public class FinishOrderPage extends BasePage {
-    private By FinishButton = By.xpath("//button[@name='finish']");
+    private final By FinishButton = By.id("finish");
 
     public FinishOrderPage(WebDriver driver) {
         super(driver);

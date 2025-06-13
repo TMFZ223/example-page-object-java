@@ -34,13 +34,13 @@ public class E2eTest extends BaseTest {
 
         CartPage cartPage = new CartPage(driver);
         cartPage.checkInventoryItemText("Sauce Labs Backpack");
+        cartPage.ClickCheckOutButton();
 
         OrderPage orderPage = new OrderPage(driver);
-        orderPage.ClickCheckOutButton();
         orderPage.EnterYourFirstname("Test name");
         orderPage.EnterYourLastname("Test lastname");
         orderPage.EnterYourZipPostalCod("125212");
-        orderPage.ClickNextButton();
+        orderPage.clickContinueButton();
 
         FinishOrderPage finishOrderPage = new FinishOrderPage(driver);
         finishOrderPage.ClickFinishButton();
