@@ -17,7 +17,7 @@ public class GratefulPage extends BasePage {
 
     // Получение текста заголовка благодарности за заказ
     public String getGratefulHeaderText() {
-        String gratefulHeaderText = driver.findElement(gratefulHeader).getText();
+        String gratefulHeaderText = getWait().until(visibilityOfElementLocated(gratefulHeader)).getText();
         return gratefulHeaderText;
     }
 

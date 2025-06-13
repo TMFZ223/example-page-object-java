@@ -13,6 +13,6 @@ abstract class BasePage {
     }
 
     protected WebDriverWait getWait() {
-        return new WebDriverWait(driver, Duration.ofSeconds(10));
+        return new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 }

@@ -23,9 +23,8 @@ abstract class BaseTest {
     }
 
     @AfterEach
-    @Step(" Очистить куки и закрыть браузер")
+    @Step("Закрыть браузер")
     public void tearDown() {
-        driver.manage().deleteAllCookies();
         if (driver != null) {
             driver.quit();
         }
