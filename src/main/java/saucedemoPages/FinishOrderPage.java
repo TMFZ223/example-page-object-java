@@ -3,7 +3,7 @@ package saucedemoPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import io.qameta.allure.Step;
 
@@ -16,7 +16,7 @@ public class FinishOrderPage extends BasePage {
 
     @Step("Нажать на кнопку завершения заказа")
     public void ClickFinishButton() {
-        getWait().until(elementToBeClickable(finishButton)).getLocation();
+        getWait().until(visibilityOfElementLocated(finishButton)).getLocation();
         driver.findElement(finishButton).click();
     }
 }
