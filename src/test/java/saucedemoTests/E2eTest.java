@@ -28,8 +28,7 @@ public class E2eTest extends BaseTest {
 
         ProductPage productPage = new ProductPage(driver);
         productPage.checkProductTitlePageText("Products");
-        productPage.chooseProduct();
-        productPage.addProductToCart();
+        productPage.chooseProductSauceLabsBackpack();
         productPage.goCart();
 
         CartPage cartPage = new CartPage(driver);
@@ -47,5 +46,7 @@ public class E2eTest extends BaseTest {
 
         GratefulPage gratefulPage = new GratefulPage(driver);
         gratefulPage.checkGratefulHeaderText("Thank you for your order!");
+        gratefulPage.clickGoBackButton();
+        productPage.checkProductTitlePageText("Products");
     }
 }

@@ -2,6 +2,7 @@ package saucedemoPages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 abstract class BasePage {
@@ -11,7 +12,7 @@ abstract class BasePage {
         this.driver = driver;
     }
 
-    public WebDriverWait getWait() {
+    protected WebDriverWait getWait() {
         return new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }

@@ -10,23 +10,17 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 import io.qameta.allure.Step;
 
 public class ProductPage extends BasePage {
-    private final By titleProductPage = By.xpath("//span[@class='title']");
-    private final By product = By.xpath("//img[@alt ='Sauce Labs Backpack']");
-    private final By cartButton = By.name("add-to-cart");
+    private final By titleProductPage = By.className("title");
+    private final By productSauceLabsBackpack = By.id("add-to-cart-sauce-labs-backpack");
     private final By cartLink = By.className("shopping_cart_link");
 
     public ProductPage(WebDriver driver) {
         super(driver);
     }
 
-    @Step("Выбрать для покупки товар 'Sauce Labs Backpack'")
-    public void chooseProduct() {
-        getWait().until(visibilityOfElementLocated(product)).click();
-    }
-
-    @Step("Добавить товар в корзину")
-    public void addProductToCart() {
-        getWait().until(elementToBeClickable(cartButton)).click();
+    @Step("Добавить в корзину товар 'Sauce Labs Backpack'")
+    public void chooseProductSauceLabsBackpack() {
+        getWait().until(visibilityOfElementLocated(productSauceLabsBackpack)).click();
     }
 
     @Step("Перейти в корзину")

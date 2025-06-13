@@ -15,23 +15,23 @@ public class AuthorizationPage extends BasePage {
 
     @Step("Ввести имя пользователя {username}")
     public void enterUsername(String username) {
-    if (username != null && !username.trim().isEmpty()) {
-        driver.findElement(usernameInput).sendKeys(username);
-    } else {
-        driver.findElement(usernameInput).clear();
-    }
+        if (username != null && !username.trim().isEmpty()) {
+            driver.findElement(usernameInput).sendKeys(username);
+        } else {
+            driver.findElement(usernameInput).clear();
+        }
     }
 
-@Step("Ввести пароль {pass}")
+    @Step("Ввести пароль {pass}")
     public void enterPassword(String pass) {
         if (pass != null && !pass.trim().isEmpty()) {
             driver.findElement(password).sendKeys(pass);
-    } else {
-        driver.findElement(password).clear();
-    } 
+        } else {
+            driver.findElement(password).clear();
+        }
     }
 
-@Step("Нажать на кнопку входа")
+    @Step("Нажать на кнопку входа")
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
     }
